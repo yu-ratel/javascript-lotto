@@ -1,4 +1,5 @@
 const MissionUtils = require("@woowacourse/mission-utils");
+const Lotto = require("../src/Lotto");
 
 
 class LottoDate { 
@@ -21,6 +22,9 @@ class LottoDate {
     throw new Error('[ERROR] 1000원 단위로 입력되게 해주세요.')
   }
 
+  getRandomNumber() {
+    return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+  }
 }
 
 module.exports = LottoDate; 
