@@ -23,4 +23,10 @@ describe('작은 단위 테스트', () => {
         date.buyLottoErrorChekeu('3200').toThrow();
     })
   })
+
+  test('주어진 금액대로 1장당 1000원의 로또의 갯수가 잘 나오는지' , () => {
+      expect(date.RandomNumberCount('30000')).toBe(30);
+  })
 });
+
+MissionUtils.Console.close();
