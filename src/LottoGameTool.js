@@ -9,6 +9,7 @@ class LottoGameTool {
     this.buyLottoprice;
     this.buyLottoSave;
     this.jackpotNumber;
+    this.bonusNumber;
   }
 
   lottoBuyStart() {
@@ -17,7 +18,7 @@ class LottoGameTool {
   
   butLottoInput(price) {
     this.buyLottoprice = price;
-    ServeValidtion.isValidLottoBuyPrice(price)
+    ServeValidtion.validateLottoBuyPrice(price)
     this.buyLottoDisplay();
   }
 
@@ -26,8 +27,9 @@ class LottoGameTool {
     this.buyLottoSave = GameHandler.randomNumberSaveKit(buyLottoCount);
     Console.print(`\n${buyLottoCount}`+'개를 구매했습니다.');
     this.buyLottoSave.map((buyLotto) => {
-      Console.print(`[${buyLotto}]`)
+      Console.print(`[${buyLotto.join(', ')}]`)
     });
+    
     this.getJackpotNumberStart();
   }
 
@@ -38,6 +40,16 @@ class LottoGameTool {
   jackpotInput(number) {
     this.jackpotNumber = number.split(',');
     new Lotto().validateLotto(this.jackpotNumber);
+    this.getBonusNumberStart();
+  }
+
+  getBonusNumberStart() {
+    Console.readLine('\n보너스 번호를 입력해 주세요.\n', (number) => this.bonusInput(number));
+  }
+
+  bonusInput(number) {
+    this.bonusNumber = number;
+    ServeValidtion.validateLottoBonusNumber(this.bonusNumber);
   }
 }
 
