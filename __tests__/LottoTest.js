@@ -14,5 +14,11 @@ describe("로또 클래스 테스트", () => {
     }).toThrow("[ERROR]");
   });
 
+  test("로또 번호가 1부터 45까지의 수만 허용하는지", ()=> {
+    expect(() => {
+      Lotto.validateScope(0)
+    }).toThrow("[ERROR]");
+  })
+
   // 아래에 추가 테스트 작성 가능
 });

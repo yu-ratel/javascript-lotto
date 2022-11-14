@@ -19,6 +19,18 @@ describe('도메인 로직 작은 단위 테스트', () => {
   test('구매한 로또 갯수대로 저장을 하는지', () => {
     expect(GameHandler.randomNumberSaveKit(7).length).toBe(7);
   })
+
+  test('보너스 번호는 하나의 수만 허용하는지', () => {
+    expect(() => {
+      ServeValidtion.validateLottoBonusNumber('12 ')
+    }).toThrow("[ERROR]")
+    expect(() => {
+      ServeValidtion.validateLottoBonusNumber('1a')
+    }).toThrow("[ERROR]")
+    expect(() => {
+      ServeValidtion.validateLottoBonusNumber('12,32')
+    }).toThrow("[ERROR]")
+  })
 });
 
 MissionUtils.Console.close();
