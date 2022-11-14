@@ -1,5 +1,4 @@
 const Lotto = require("./Lotto");
-const LottoGameTool = require("./LottoGameTool");
 
 class GameHandler {
   static randomNumberCount(buyLotto) {
@@ -12,7 +11,7 @@ class GameHandler {
   }
     
   static randomNumberSaveKit(lottoCount) {
-    let save = [];
+    const save = [];
     while(lottoCount !== 0) {
       lottoCount -= 1;
       save.push(new Lotto().getRandomNumber());

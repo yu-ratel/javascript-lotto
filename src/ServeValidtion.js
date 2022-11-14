@@ -1,4 +1,4 @@
-class serveValidtion{
+class ServeValidtion{
    static isValidLottoBuyPrice(price) {
     if (Number(price)%1000 !== 0 
     || Number.isNaN(price)) {
@@ -8,4 +8,4 @@ class serveValidtion{
   }
 }
 
-module.exports = serveValidtion;
+module.exports = ServeValidtion;
