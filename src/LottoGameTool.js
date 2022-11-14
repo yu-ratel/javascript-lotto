@@ -10,6 +10,7 @@ class LottoGameTool {
     this.buyLottoSave;
     this.jackpotNumber;
     this.bonusNumber;
+    this.matchList;
   }
 
   lottoBuyStart() {
@@ -38,8 +39,8 @@ class LottoGameTool {
   }
 
   jackpotInput(number) {
-    this.jackpotNumber = number.split(',');
-    new Lotto(this.jackpotNumber);
+    this.jackpotNumber = number;
+    new Lotto(this.jackpotNumber.split(','));
     this.getBonusNumberStart();
   }
 
@@ -50,6 +51,30 @@ class LottoGameTool {
   bonusInput(number) {
     this.bonusNumber = number;
     ServeValidtion.validateLottoBonusNumber(this.bonusNumber);
+    this.jackpotResultDisplay();
+  }
+
+  jackpotResultDisplay() {
+    this.matchList = GameHandler.hasJackpotCount(this.buyLottoSave, this.jackpotNumber, this.bonusNumber);
+    Console.print(`
+당첨 통계
+---
+3개 일치 (5,000원) - ${this.matchList[0]}개
+4개 일치 (50,000원) - ${this.matchList[1]}개
+5개 일치 (1,500,000원) - ${this.matchList[2]}개
+5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.matchList[3]}개
+6개 일치 (2,000,000,000원) - ${this.matchList[4]}개`)
+  
+  this.rateOfReturnResultDisplay();
+  }
+
+  rateOfReturnResultDisplay() {
+  const jackpotMoneyList = GameHandler.jackpotMoneyList();
+  const totalMoney = GameHandler.totalJackpotMoney(this.matchList,jackpotMoneyList);
+  const rateOfReturn= GameHandler.rateOfReturnCalculator(totalMoney, this.buyLottoprice);
+  Console.print(`총 수익률은 ${rateOfReturn}%입니다.`)
+
+  Console.close();
   }
 }
 
