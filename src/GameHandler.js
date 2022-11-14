@@ -40,8 +40,8 @@ class GameHandler {
     buylottos.map((buylotto) => {
       let count = 0;
       let bonus = 0;
-      buylotto.map((lotto) => {
-        jackpotNumber.includes((lotto.toString())) && count++;
+      jackpotNumber.split(',').map((jackpot) => {
+        buylotto.includes(Number(jackpot)) && count++;
         jackpotNumber.includes(bonusNumber) && bonus++; 
       });
       this.jackpotCountRankMatching(count, bonus, matchList);
