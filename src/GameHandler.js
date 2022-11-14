@@ -49,6 +49,24 @@ class GameHandler {
     
       return matchList;
   }
+
+  static jackpotMoneyList() {
+    return [5000,50000,1500000,30000000,2000000000];
+  }
+
+  static totalJackpotMoney(matchList, monyList) {
+    let totalMoney = 0;
+    matchList.forEach((jackpot, index) => {
+      if(jackpot) {
+        totalMoney += jackpot * monyList[index];
+      }
+    });
+    return totalMoney;
+  }
+
+  static rateOfReturnCalculator(totalMoney, buyLottoprice) {
+    return ((totalMoney/buyLottoprice)*100).toFixed(1)
+  }
 }
 
 const Ranklist = {
