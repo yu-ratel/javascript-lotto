@@ -1,20 +1,18 @@
-const MissionUtils = require("@woowacourse/mission-utils");
+const {Console} = require("@woowacourse/mission-utils");
 const ServeValidtion = require("./ServeValidtion");
 const GameHandler = require("./GameHandler");
+const Lotto = require("./Lotto");
 
 
 class LottoGameTool { 
   constructor() {
     this.buyLottoprice;
     this.buyLottoSave;
-  }
-
-  inputDate(messge, callback) {
-    MissionUtils.Console.readLine(messge, callback);
+    this.jackpotNumber;
   }
 
   lottoBuyStart() {
-    this.inputDate('구입금액을 입력해 주세요.\n', (price) => this.butLottoInput(price));
+    Console.readLine('구입금액을 입력해 주세요.\n', (price) => this.butLottoInput(price));
   }
   
   butLottoInput(price) {
@@ -26,11 +24,20 @@ class LottoGameTool {
   buyLottoDisplay() {
     const buyLottoCount = GameHandler.randomNumberCount(this.buyLottoprice);
     this.buyLottoSave = GameHandler.randomNumberSaveKit(buyLottoCount);
-    MissionUtils.Console.print(`\n${buyLottoCount}`+'개를 구매했습니다.');
+    Console.print(`\n${buyLottoCount}`+'개를 구매했습니다.');
     this.buyLottoSave.map((buyLotto) => {
-      MissionUtils.Console.print(`[${buyLotto}]`)
+      Console.print(`[${buyLotto}]`)
     });
+    this.getJackpotNumberStart();
+  }
 
+  getJackpotNumberStart() {
+    Console.readLine('\n당첨 번호를 입력해 주세요.\n', (number) => this.jackpotInput(number));
+  }
+
+  jackpotInput(number) {
+    this.jackpotNumber = number.split(',');
+    new Lotto().validateLotto(this.jackpotNumber);
   }
 }
 
