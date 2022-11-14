@@ -31,6 +31,14 @@ describe('도메인 로직 작은 단위 테스트', () => {
       ServeValidtion.validateLottoBonusNumber('12,32')
     }).toThrow("[ERROR]")
   })
+
+  test('당첨조건에 따라 등수에 알맞게 배열로 반환해 주는지', () => {
+    const buyLottos = [[1,2,3,4,5,6],[1,3,6,25,35,45]];
+    const jackpotNumber ='1,3,6,7,25,35'
+    const bonusNumber = '7'
+    expect(GameHandler.hasJackpotCount(buyLottos, jackpotNumber, bonusNumber))
+    .toEqual([1,0,0,1,0]);
+  })
 });
 
 MissionUtils.Console.close();
