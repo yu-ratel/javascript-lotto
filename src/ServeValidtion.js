@@ -10,7 +10,7 @@ class ServeValidtion{
   }
 
   static validateLottoBonusNumber(number) {
-    new Lotto().validateScope(number);
+    Lotto.validateScope(number);
     const limit = /^[1-9]+$/;
     if(!limit.test(number)) {
       throw new Error('[ERROR] 보너스 번호는 하나의 숫자로 입력해야 합니다.')

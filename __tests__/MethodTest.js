@@ -6,9 +6,9 @@ const ServeValidtion = require("../src/ServeValidtion");
 
 describe('도메인 로직 작은 단위 테스트', () => {
   test('1000원 단위가 아니라면 오류를 던지는지', () => {
-    expect(ServeValidtion.isValidLottoBuyPrice('3000')).toBeTruthy();
+    expect(ServeValidtion.validateLottoBuyPrice('3000')).toBeTruthy();
     expect(() => {
-        ServeValidtion.isValidLottoBuyPrice('3200').toThrow();
+        ServeValidtion.validateLottoBuyPrice('3200').toThrow();
     })
   })
 

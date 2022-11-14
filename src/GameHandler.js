@@ -14,7 +14,7 @@ class GameHandler {
     const save = [];
     while(lottoCount !== 0) {
       lottoCount -= 1;
-      save.push(new Lotto().getRandomNumber());
+      save.push(Lotto.getRandomNumber());
     }
 
     return save;

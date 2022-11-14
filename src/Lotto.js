@@ -4,6 +4,7 @@ class Lotto {
   #numbers;
 
   constructor(numbers) {
+    this.validateLotto(numbers);
     this.#numbers = numbers;
   }
   
@@ -15,19 +16,18 @@ class Lotto {
       throw new Error("[ERROR] 로또 번호는 중복이 없어야 합니다.");
     }
     numbers.map((number) => {
-      this.validateScope(number);
+      this.constructor.validateScope(number);
     });
   }
 
-  validateScope(number) {
+  static validateScope(number) {
     if(number < 1 || number > 45) {
       throw new Error("[ERROR] 로또 번호는 1~45까지의 숫자여야 합니다.");
     }
   }
 
-  getRandomNumber() {
+  static getRandomNumber() {
     const randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort((a,b)=>a-b);
-    this.validateLotto(randomNumber);
     return randomNumber;
   }
 }
