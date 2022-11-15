@@ -3,10 +3,13 @@ const {LOTTO, NUMBER} = require("./Constant");
 
 class ServeValidtion{
    static validateLottoBuyPrice(price) {
+    const priceLimit = /^[1-9][0-9]+$/;
     if (Number(price)%LOTTO.PRICE !== NUMBER.ZERO 
-    || Number.isNaN(price)) {
+    || !priceLimit.test(price)
+    || Number(price) < LOTTO.PRICE) {
       throw new Error('[ERROR] 1000원 단위의 숫자로 입력해 주세요.');
     }
+
     return true;
   }
 
