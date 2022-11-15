@@ -33,6 +33,7 @@ class Lotto {
       LOTTO.MAX_NUMBER,
       LOTTO.LENGTH)
       .sort((a, b) => a - b);
+      
     return randomNumber;
   }
 }

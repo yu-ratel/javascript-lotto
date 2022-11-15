@@ -20,6 +20,7 @@ class LottoGameTool {
   butLottoInput(price) {
     this.buyLottoprice = price;
     ServeValidtion.validateLottoBuyPrice(price)
+
     this.buyLottoDisplay();
   }
 
@@ -42,6 +43,7 @@ class LottoGameTool {
     this.jackpotNumber = number;
     new Lotto(this.jackpotNumber.split(','));
     ServeValidtion.validateJackpotNumber(number);
+
     this.getBonusNumberStart();
   }
 
@@ -52,6 +54,7 @@ class LottoGameTool {
   bonusInput(number) {
     this.bonusNumber = number;
     ServeValidtion.validateLottoBonusNumber(this.bonusNumber, this.jackpotNumber);
+
     this.jackpotResultDisplay();
   }
 

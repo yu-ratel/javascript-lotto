@@ -8,6 +8,7 @@ class GameHandler {
       buyLotto -= LOTTO.PRICE;
       count += NUMBER.ONE;
     }
+
     return count;
   }
 
@@ -62,6 +63,7 @@ class GameHandler {
         totalMoney += jackpot * monyList[index];
       }
     });
+    
     return totalMoney;
   }
 
