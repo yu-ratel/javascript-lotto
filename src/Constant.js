@@ -21,7 +21,7 @@ const RESULT_MESSAGE = {
   WON_LOTTE_THREE: '5개 일치 (1,500,000원) - ',
   WON_LOTTE_TWO: '5개 일치, 보너스 볼 일치 (30,000,000원) - ',
   WON_LOTTE_ONE: '6개 일치 (2,000,000,000원) - ',
-  END: '개'
+  END: '개',
 }
 
 const LOTTO_RANK = {
@@ -48,6 +48,21 @@ const NUMBER = {
   SIX: 6,
 }
 
+const REGEXP = {
+  PRICE_LIMIT: /^[1-9][0-9]+$/,
+  LOTTO_INPUT_LIMIT: /^[1-9]+$/, 
+}
+
+const ERROR = {
+  LOTTO_LENGTH: '[ERROR] 로또 번호는 6개여야 합니다.',
+  LOTTO_OVERLAP: '[ERROR] 로또 번호는 중복이 없어야 합니다.',
+  LOTTO_SCPOE: '[ERROR] 로또 번호는 1~45까지의 숫자여야 합니다.',
+  LOTTO_PRICE: '[ERROR] 1000원 단위의 숫자로 입력해 주세요.',
+  JACKPOT_INPUT_TYPE: '[ERROR] 당첨 번호는 쉼표를 기준으로 숫자로만 입력해야합니다.',
+  BONUS_ONLY: '[ERROR] 보너스 번호는 하나의 숫자로 입력해야 합니다.',
+  BONUS_IS_JACKPOT: '[ERROR] 보너스 번호는 당첨번호와 중복될 수 없습니다.',
+}
+
 module.exports = {
   LOTTO,
   PROCESS_MESSAGE,
@@ -55,4 +70,6 @@ module.exports = {
   LOTTO_RANK,
   RATE_OF_RETURN,
   NUMBER,
+  REGEXP,
+  ERROR,
 }
