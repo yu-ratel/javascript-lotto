@@ -1,11 +1,10 @@
-const {Console} = require("@woowacourse/mission-utils");
-const ServeValidtion = require("./ServeValidtion");
-const GameHandler = require("./GameHandler");
-const Lotto = require("./Lotto");
-const {PROCESS_MESSAGE, RESULT_MESSAGE, LOTTO_RANK, RATE_OF_RETURN} = require("./Constant")
+const { Console } = require('@woowacourse/mission-utils');
+const ServeValidtion = require('./ServeValidtion');
+const GameHandler = require('./GameHandler');
+const Lotto = require('./Lotto');
+const { PROCESS_MESSAGE, RESULT_MESSAGE, LOTTO_RANK, RATE_OF_RETURN } = require('./Constant')
 
-
-class LottoGameTool { 
+class LottoGameTool {
   constructor() {
     this.buyLottoprice;
     this.buyLottoSave;
@@ -17,7 +16,7 @@ class LottoGameTool {
   lottoBuyStart() {
     Console.readLine(PROCESS_MESSAGE.BUY_START, (price) => this.butLottoInput(price));
   }
-  
+
   butLottoInput(price) {
     this.buyLottoprice = price;
     ServeValidtion.validateLottoBuyPrice(price)
@@ -27,11 +26,11 @@ class LottoGameTool {
   buyLottoDisplay() {
     const buyLottoCount = GameHandler.randomNumberCount(this.buyLottoprice);
     this.buyLottoSave = GameHandler.randomNumberSaveKit(buyLottoCount);
-    Console.print(`\n${buyLottoCount}` + PROCESS_MESSAGE.BUY_LIST);
+    Console.print(`\n${buyLottoCount}${PROCESS_MESSAGE.BUY_LIST}`);
     this.buyLottoSave.map((buyLotto) => {
-      Console.print(`[${buyLotto.join(', ')}]`)
+      Console.print(`[${buyLotto.join(', ')}]`);
     });
-    
+
     this.getJackpotNumberStart();
   }
 
@@ -60,30 +59,23 @@ class LottoGameTool {
     this.matchList = GameHandler.hasJackpotCount(this.buyLottoSave, this.jackpotNumber, this.bonusNumber);
     Console.print(RESULT_MESSAGE.TOP_TEXT);
     Console.print(RESULT_MESSAGE.MIDDLE_TEXT);
-    Console.print(RESULT_MESSAGE.WON_LOTTE_FIVE + `${this.matchList[LOTTO_RANK.FIVE]}` + RESULT_MESSAGE.END);
-    Console.print(RESULT_MESSAGE.WON_LOTTE_FOUR + `${this.matchList[LOTTO_RANK.FOUR]}` + RESULT_MESSAGE.END);
-    Console.print(RESULT_MESSAGE.WON_LOTTE_THREE + `${this.matchList[LOTTO_RANK.THREE]}` + RESULT_MESSAGE.END);
-    Console.print(RESULT_MESSAGE.WON_LOTTE_TWO + `${this.matchList[LOTTO_RANK.TWO]}` + RESULT_MESSAGE.END);
-    Console.print(RESULT_MESSAGE.WON_LOTTE_ONE + `${this.matchList[LOTTO_RANK.ONE]}` + RESULT_MESSAGE.END);
+    Console.print(`${RESULT_MESSAGE.WON_LOTTE_FIVE}${this.matchList[LOTTO_RANK.FIVE]}${RESULT_MESSAGE.END}`);
+    Console.print(`${RESULT_MESSAGE.WON_LOTTE_FOUR}${this.matchList[LOTTO_RANK.FOUR]}${RESULT_MESSAGE.END}`);
+    Console.print(`${RESULT_MESSAGE.WON_LOTTE_THREE}${this.matchList[LOTTO_RANK.THREE]}${RESULT_MESSAGE.END}`);
+    Console.print(`${RESULT_MESSAGE.WON_LOTTE_TWO}${this.matchList[LOTTO_RANK.TWO]}${RESULT_MESSAGE.END}`);
+    Console.print(`${RESULT_MESSAGE.WON_LOTTE_ONE}${this.matchList[LOTTO_RANK.ONE]}${RESULT_MESSAGE.END}`);
 
     this.rateOfReturnResultDisplay();
   }
 
   rateOfReturnResultDisplay() {
-  const jackpotMoneyList = GameHandler.jackpotMoneyList();
-  const totalMoney = GameHandler.totalJackpotMoney(this.matchList,jackpotMoneyList);
-  const rateOfReturn= GameHandler.rateOfReturnCalculator(totalMoney, this.buyLottoprice);
-  Console.print(RATE_OF_RETURN.HEADER_TEXT + `${rateOfReturn}` + RATE_OF_RETURN.FOOTER_TEXT);
+    const jackpotMoneyList = GameHandler.jackpotMoneyList();
+    const totalMoney = GameHandler.totalJackpotMoney(this.matchList, jackpotMoneyList);
+    const rateOfReturn = GameHandler.rateOfReturnCalculator(totalMoney, this.buyLottoprice);
+    Console.print(`${RATE_OF_RETURN.HEADER_TEXT}${rateOfReturn}${RATE_OF_RETURN.FOOTER_TEXT}`);
 
-  Console.close();
+    Console.close();
   }
 }
 
- 
-
-const a = new LottoGameTool()
-a.lottoBuyStart()
-
-
 module.exports = LottoGameTool;
-//당첨번호와 보너스 받는 기능
