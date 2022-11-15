@@ -1,19 +1,20 @@
 const Lotto = require("./Lotto");
+const {LOTTO, LOTTO_RANK, NUMBER, RATE_OF_RETURN} = require("./Constant");
 
 class GameHandler {
   static randomNumberCount(buyLotto) {
-    let count = 0;
-    while(buyLotto !== 0) {
-      buyLotto -= 1000;
-      count += 1;
+    let count = NUMBER.ZERO;
+    while(buyLotto !== NUMBER.ZERO) {
+      buyLotto -= LOTTO.PRICE;
+      count += NUMBER.ONE;
     }
     return count; 
   }
     
   static randomNumberSaveKit(lottoCount) {
     const save = [];
-    while(lottoCount !== 0) {
-      lottoCount -= 1;
+    while(lottoCount !== NUMBER.ZERO) {
+      lottoCount -= NUMBER.ONE;
       const randomNumber = Lotto.getRandomNumber();
       if(new Lotto(randomNumber)) {
         save.push(randomNumber);
@@ -24,22 +25,22 @@ class GameHandler {
   }
 
   static jackpotCountRankMatching(count, bonus, matchList) {
-    if(count === 6) return matchList[Ranklist.first] +=1;
-    if(count === 5 && bonus) {
-      return matchList[Ranklist.second] +=1;
+    if(count === NUMBER.SIX) return matchList[LOTTO_RANK.ONE] +=NUMBER.ONE;
+    if(count === NUMBER.FIVE && bonus) {
+      return matchList[LOTTO_RANK.TWO] +=NUMBER.ONE;
     }
-    if(count === 5) return matchList[Ranklist.third] +=1;
-    if(count === 4) return matchList[Ranklist.fourth] +=1;
-    if(count === 3) return matchList[Ranklist.fifth] +=1;
+    if(count === NUMBER.FIVE) return matchList[LOTTO_RANK.THREE] +=NUMBER.ONE;
+    if(count === NUMBER.FOUR) return matchList[LOTTO_RANK.FOUR] +=NUMBER.ONE;
+    if(count === NUMBER.THREE) return matchList[LOTTO_RANK.FIVE] +=NUMBER.ONE;
   
     return matchList;
   }
   
   static hasJackpotCount(buylottos, jackpotNumber, bonusNumber) {
-    const matchList = new Array(5).fill(0);
+    const matchList = new Array(NUMBER.FIVE).fill(NUMBER.ZERO);
     buylottos.map((buylotto) => {
-      let count = 0;
-      let bonus = 0;
+      let count = NUMBER.ZERO;
+      let bonus = NUMBER.ZERO;
       jackpotNumber.split(',').map((jackpot) => {
         buylotto.includes(Number(jackpot)) && count++;
         jackpotNumber.includes(bonusNumber) && bonus++; 
@@ -51,11 +52,11 @@ class GameHandler {
   }
 
   static jackpotMoneyList() {
-    return [5000,50000,1500000,30000000,2000000000];
+    return LOTTO.JACKPOT_MONEY_LIST;
   }
 
   static totalJackpotMoney(matchList, monyList) {
-    let totalMoney = 0;
+    let totalMoney = NUMBER.ZERO;
     matchList.forEach((jackpot, index) => {
       if(jackpot) {
         totalMoney += jackpot * monyList[index];
@@ -65,16 +66,8 @@ class GameHandler {
   }
 
   static rateOfReturnCalculator(totalMoney, buyLottoprice) {
-    return ((totalMoney/buyLottoprice)*100).toFixed(1)
+    return ((totalMoney/buyLottoprice)*RATE_OF_RETURN.MULTIPLY_VALUE).toFixed(NUMBER.ONE);
   }
 }
-
-const Ranklist = {
-  fifth:0,
-  fourth:1,
-  third:2,
-  second:3,
-  first:4,
-} 
 
 module.exports = GameHandler;

@@ -1,4 +1,5 @@
 const MissionUtils = require("@woowacourse/mission-utils");
+const {LOTTO} = require("./Constant");
 
 class Lotto {
   #numbers;
@@ -9,10 +10,10 @@ class Lotto {
   }
   
   validateLotto(numbers) {
-    if (numbers.length !== 6) {
+    if (numbers.length !== LOTTO.LENGTH) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
-    if(new Set(numbers).size !== 6) {
+    if(new Set(numbers).size !== LOTTO.LENGTH) {
       throw new Error("[ERROR] 로또 번호는 중복이 없어야 합니다.");
     }
     numbers.map((number) => {
@@ -21,13 +22,17 @@ class Lotto {
   }
 
   static validateScope(number) {
-    if(number < 1 || number > 45) {
+    if(number < LOTTO.MIN_NUMBER || number > LOTTO.MAX_NUMBER) {
       throw new Error("[ERROR] 로또 번호는 1~45까지의 숫자여야 합니다.");
     }
   }
 
   static getRandomNumber() {
-    const randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort((a,b)=>a-b);
+    const randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(
+      LOTTO.MIN_NUMBER
+      , LOTTO.MAX_NUMBER
+      , LOTTO.LENGTH)
+      .sort((a,b)=>a-b);
     return randomNumber;
   }
 }

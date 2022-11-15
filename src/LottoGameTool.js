@@ -2,6 +2,7 @@ const {Console} = require("@woowacourse/mission-utils");
 const ServeValidtion = require("./ServeValidtion");
 const GameHandler = require("./GameHandler");
 const Lotto = require("./Lotto");
+const {PROCESS_MESSAGE, RESULT_MESSAGE, LOTTO_RANK, RATE_OF_RETURN} = require("./Constant")
 
 
 class LottoGameTool { 
@@ -14,7 +15,7 @@ class LottoGameTool {
   }
 
   lottoBuyStart() {
-    Console.readLine('구입금액을 입력해 주세요.\n', (price) => this.butLottoInput(price));
+    Console.readLine(PROCESS_MESSAGE.BUY_START, (price) => this.butLottoInput(price));
   }
   
   butLottoInput(price) {
@@ -26,7 +27,7 @@ class LottoGameTool {
   buyLottoDisplay() {
     const buyLottoCount = GameHandler.randomNumberCount(this.buyLottoprice);
     this.buyLottoSave = GameHandler.randomNumberSaveKit(buyLottoCount);
-    Console.print(`\n${buyLottoCount}`+'개를 구매했습니다.');
+    Console.print(`\n${buyLottoCount}` + PROCESS_MESSAGE.BUY_LIST);
     this.buyLottoSave.map((buyLotto) => {
       Console.print(`[${buyLotto.join(', ')}]`)
     });
@@ -35,7 +36,7 @@ class LottoGameTool {
   }
 
   getJackpotNumberStart() {
-    Console.readLine('\n당첨 번호를 입력해 주세요.\n', (number) => this.jackpotInput(number));
+    Console.readLine(PROCESS_MESSAGE.JACKPOT_START, (number) => this.jackpotInput(number));
   }
 
   jackpotInput(number) {
@@ -45,7 +46,7 @@ class LottoGameTool {
   }
 
   getBonusNumberStart() {
-    Console.readLine('\n보너스 번호를 입력해 주세요.\n', (number) => this.bonusInput(number));
+    Console.readLine(PROCESS_MESSAGE.BONUS_START, (number) => this.bonusInput(number));
   }
 
   bonusInput(number) {
@@ -56,23 +57,22 @@ class LottoGameTool {
 
   jackpotResultDisplay() {
     this.matchList = GameHandler.hasJackpotCount(this.buyLottoSave, this.jackpotNumber, this.bonusNumber);
-    Console.print(`
-당첨 통계
----
-3개 일치 (5,000원) - ${this.matchList[0]}개
-4개 일치 (50,000원) - ${this.matchList[1]}개
-5개 일치 (1,500,000원) - ${this.matchList[2]}개
-5개 일치, 보너스 볼 일치 (30,000,000원) - ${this.matchList[3]}개
-6개 일치 (2,000,000,000원) - ${this.matchList[4]}개`)
-  
-  this.rateOfReturnResultDisplay();
+    Console.print(RESULT_MESSAGE.TOP_TEXT);
+    Console.print(RESULT_MESSAGE.MIDDLE_TEXT);
+    Console.print(RESULT_MESSAGE.WON_LOTTE_FIVE + `${this.matchList[LOTTO_RANK.FIVE]}` + RESULT_MESSAGE.END);
+    Console.print(RESULT_MESSAGE.WON_LOTTE_FOUR + `${this.matchList[LOTTO_RANK.FOUR]}` + RESULT_MESSAGE.END);
+    Console.print(RESULT_MESSAGE.WON_LOTTE_THREE + `${this.matchList[LOTTO_RANK.THREE]}` + RESULT_MESSAGE.END);
+    Console.print(RESULT_MESSAGE.WON_LOTTE_TWO + `${this.matchList[LOTTO_RANK.TWO]}` + RESULT_MESSAGE.END);
+    Console.print(RESULT_MESSAGE.WON_LOTTE_ONE + `${this.matchList[LOTTO_RANK.ONE]}` + RESULT_MESSAGE.END);
+
+    this.rateOfReturnResultDisplay();
   }
 
   rateOfReturnResultDisplay() {
   const jackpotMoneyList = GameHandler.jackpotMoneyList();
   const totalMoney = GameHandler.totalJackpotMoney(this.matchList,jackpotMoneyList);
   const rateOfReturn= GameHandler.rateOfReturnCalculator(totalMoney, this.buyLottoprice);
-  Console.print(`총 수익률은 ${rateOfReturn}%입니다.`)
+  Console.print(RATE_OF_RETURN.HEADER_TEXT + `${rateOfReturn}` + RATE_OF_RETURN.FOOTER_TEXT);
 
   Console.close();
   }

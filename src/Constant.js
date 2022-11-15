@@ -7,10 +7,10 @@ const LOTTO = {
 }
 
 const PROCESS_MESSAGE = {
-  BUY_START: '구입금액을 입력해 주세요.',
+  BUY_START: '구입금액을 입력해 주세요.\n',
   BUY_LIST: '개를 구매했습니다.',
-  JACKPOT_START: '당첨 번호를 입력해 주세요.',
-  BONUS_START: '보너스 번호를 입력해 주세요.',
+  JACKPOT_START: '\n당첨 번호를 입력해 주세요.\n',
+  BONUS_START: '\n보너스 번호를 입력해 주세요.\n',
 }
 
 const RESULT_MESSAGE = {
@@ -24,12 +24,12 @@ const RESULT_MESSAGE = {
   END: '개'
 }
 
-const LOTTERY_RANK = {
-  FIVE: 5,
-  FOUR: 4,
-  THREE: 3,
-  TWO: 2,
-  ONE: 1,
+const LOTTO_RANK = {
+  FIVE: 0,
+  FOUR: 1,
+  THREE: 2,
+  TWO: 3,
+  ONE: 4,
 }
 
 const RATE_OF_RETURN = {
@@ -46,4 +46,13 @@ const NUMBER = {
   FOUR: 4,
   FIVE: 5,
   SIX: 6,
+}
+
+module.exports = {
+  LOTTO,
+  PROCESS_MESSAGE,
+  RESULT_MESSAGE,
+  LOTTO_RANK,
+  RATE_OF_RETURN,
+  NUMBER,
 }
