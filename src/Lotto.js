@@ -1,5 +1,5 @@
-const MissionUtils = require("@woowacourse/mission-utils");
-const {LOTTO, ERROR} = require("./Constant");
+const MissionUtils = require('@woowacourse/mission-utils');
+const {LOTTO, ERROR} = require('./Constant');
 
 class Lotto {
   #numbers;
@@ -8,12 +8,12 @@ class Lotto {
     this.validateLotto(numbers);
     this.#numbers = numbers;
   }
-  
+
   validateLotto(numbers) {
     if (numbers.length !== LOTTO.LENGTH) {
       throw new Error(ERROR.LOTTO_LENGTH);
     }
-    if(new Set(numbers).size !== LOTTO.LENGTH) {
+    if (new Set(numbers).size !== LOTTO.LENGTH) {
       throw new Error(ERROR.LOTTO_OVERLAP);
     }
     numbers.map((number) => {
@@ -22,17 +22,17 @@ class Lotto {
   }
 
   static validateScope(number) {
-    if(number < LOTTO.MIN_NUMBER || number > LOTTO.MAX_NUMBER) {
+    if (number < LOTTO.MIN_NUMBER || number > LOTTO.MAX_NUMBER) {
       throw new Error(ERROR.LOTTO_SCPOE);
     }
   }
 
   static getRandomNumber() {
     const randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(
-      LOTTO.MIN_NUMBER
-      , LOTTO.MAX_NUMBER
-      , LOTTO.LENGTH)
-      .sort((a,b)=>a-b);
+      LOTTO.MIN_NUMBER,
+      LOTTO.MAX_NUMBER,
+      LOTTO.LENGTH)
+      .sort((a, b) => a - b);
     return randomNumber;
   }
 }
