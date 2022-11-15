@@ -60,7 +60,7 @@ describe('도메인 로직 작은 단위 테스트', () => {
   });
 
   test('당첨결과 배열에 따라 알맞는 총합값을 내주는지', () => {
-    const matchList = [1,0,0,1,0];
+    const matchList = [1, 0, 0, 1, 0];
     const moneyList = GameHandler.jackpotMoneyList();
     expect(GameHandler.totalJackpotMoney(matchList, moneyList))
       .toBe(30005000);
