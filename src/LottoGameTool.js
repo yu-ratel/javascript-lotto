@@ -42,6 +42,7 @@ class LottoGameTool {
   jackpotInput(number) {
     this.jackpotNumber = number;
     new Lotto(this.jackpotNumber.split(','));
+    ServeValidtion.validateJackpotNumber(number);
     this.getBonusNumberStart();
   }
 

@@ -2,7 +2,7 @@ const Lotto = require("./Lotto");
 const {LOTTO, NUMBER} = require("./Constant");
 
 class ServeValidtion{
-   static validateLottoBuyPrice(price) {
+  static validateLottoBuyPrice(price) {
     const priceLimit = /^[1-9][0-9]+$/;
     if (Number(price)%LOTTO.PRICE !== NUMBER.ZERO 
     || !priceLimit.test(price)
@@ -11,6 +11,15 @@ class ServeValidtion{
     }
 
     return true;
+  }
+
+  static validateJackpotNumber(number) {
+    const limits = /^[1-9]+$/;
+    number.split(',').map((type) => {
+      if(!limits.test(type)) {
+        throw new Error('[ERROR] 당첨 번호는 쉼표를 기준으로 숫자로만 입력해야합니다.');
+      }
+    })
   }
 
   static validateLottoBonusNumber(number) {
