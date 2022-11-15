@@ -52,7 +52,7 @@ class LottoGameTool {
 
   bonusInput(number) {
     this.bonusNumber = number;
-    ServeValidtion.validateLottoBonusNumber(this.bonusNumber);
+    ServeValidtion.validateLottoBonusNumber(this.bonusNumber, this.jackpotNumber);
     this.jackpotResultDisplay();
   }
 
