@@ -26,6 +26,12 @@ describe('도메인 로직 작은 단위 테스트', () => {
     expect(GameHandler.randomNumberSaveKit(7).length).toBe(7);
   })
 
+  test('구매한 로또가 쉼표를 구분으로 숫자가 들어오지않으면 오류를 던지는지', () => {
+    expect(() => {
+      ServeValidtion.validateJackpotNumber('1,2,3, ,4,5')
+    }).toThrow("[ERROR]")
+  })
+
   test('보너스 번호는 하나의 수만 허용하는지', () => {
     expect(() => {
       ServeValidtion.validateLottoBonusNumber('12 ')
@@ -36,6 +42,14 @@ describe('도메인 로직 작은 단위 테스트', () => {
     expect(() => {
       ServeValidtion.validateLottoBonusNumber('12,32')
     }).toThrow("[ERROR]");
+  })
+
+  test('보너스 번호가 당첨번호랑 겹치면 오류를 던지는지', () => {
+    const bonusNumber = '6'
+    const jackpotNumber = '1,2,3,4,5,6'
+    expect(() => {
+      ServeValidtion.validateLottoBonusNumber(bonusNumber, jackpotNumber)
+    }).toThrow("[ERROR]")
   })
 
   test('당첨조건에 따라 등수에 알맞게 배열로 반환해 주는지', () => {
