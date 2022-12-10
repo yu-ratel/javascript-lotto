@@ -17,6 +17,16 @@ class Lotto {
     return this.#numbers;
   }
 
+  jackpotState(list, bonus) {
+    const answer = [];
+    list.forEach((lotto) => {
+      const count = lotto.filter(number => this.#numbers.includes(number)).length
+      if(count === 5 && lotto.includes(bonus)) return answer.push(7);
+      return answer.push(count)
+    })
+    return answer;
+  }
+
 }
 
 module.exports = Lotto;
