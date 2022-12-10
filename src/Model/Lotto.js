@@ -11,6 +11,12 @@ class Lotto {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
   }
+  
+  lottoSort() {
+    this.#numbers.sort((a,b) => a-b );
+    return this.#numbers;
+  }
+
 }
 
 module.exports = Lotto;

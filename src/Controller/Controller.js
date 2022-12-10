@@ -1,9 +1,12 @@
 const InputView = require('../View/InputView');
 const OutputView = require('../View/OutputView');
+const { Random } =require('@woowacourse/mission-utils');
+const Lotto = require('../Model/Lotto');
 
 
 class Controller {
   #buyAmount
+  #lotto = [];
 
   inputLottoBuyAmount() {
     InputView.readLottoBuyAmount((input) => {
@@ -12,8 +15,19 @@ class Controller {
       }
       
       this.#buyAmount = input/1000; 
+      this.lottoGeneration(this.#buyAmount);
     })
   }
+  
+  lottoGeneration(amount) {
+      while(amount > 0) {
+      const numbers = Random.pickUniqueNumbersInRange(1, 45, 6);
+      this.#lotto.push(new Lotto(numbers).lottoSort());
+      amount -=1;
+    }
+    OutputView.printBuyLotto(this.#buyAmount, this.#lotto);
+  }
+  
 }
 
 module.exports = Controller;
