@@ -7,6 +7,7 @@ const Lotto = require('../Model/Lotto');
 class Controller {
   #buyAmount
   #lotto = [];
+  #jackpotNumber;
 
   inputLottoBuyAmount() {
     InputView.readLottoBuyAmount((input) => {
@@ -34,6 +35,16 @@ class Controller {
       const jackpotNumbers = input.split(',');
       if(jackpotNumbers.length !== 6 || jackpotNumbers.some((number) => isNaN(number))) {
         throw new Error('당첨번호는 쉼표를 기준으로 6자리의 숫자를 입력해야 합니다.')
+      }
+      this.#jackpotNumber = jackpotNumbers;
+      this.inputBonus();
+    })
+  }
+
+  inputBonus() {
+    InputView.readBonus((input) => {
+      if(isNaN(input) || this.#jackpotNumber.includes(input) || input.length !== 1) {
+        throw new Error('보너스번호는 중복번호와 겹치지않는 한자리의 숫자여야 합니다.')
       }
     })
   }
