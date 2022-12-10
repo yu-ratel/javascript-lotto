@@ -15,8 +15,8 @@ class Controller {
         throw new Error('로또금액은 1,000원 단위로만 입력하셔야 합니다.')
       }
       
-      this.#buyAmount = input/1000; 
-      this.lottoGeneration(this.#buyAmount);
+      this.#buyAmount = input; 
+      this.lottoGeneration(this.#buyAmount/1000);
     })
   }
   
@@ -26,7 +26,7 @@ class Controller {
       this.#lotto.push(new Lotto(numbers).lottoSort());
       amount -=1;
     }
-    OutputView.printBuyLotto(this.#buyAmount, this.#lotto);
+    OutputView.printBuyLotto((this.#buyAmount/1000), this.#lotto);
     this.inputJackpot();
   }
   
@@ -46,12 +46,19 @@ class Controller {
       if(isNaN(input) || this.#jackpotNumber.includes(input) ) {
         throw new Error('보너스번호는 중복번호와 겹치지않는 한자리의 숫자여야 합니다.')
       }
-      this.lottoJackpotState(input);
+      this.lottoJackpotResult(input);
     })
   }
-  
-  lottoJackpotState(bonus) {
-    console.log(new Lotto(this.#jackpotNumber).jackpotState(this.#lotto, Number(bonus)))
+  //매니저
+  rateOfReturnResult(jackpotMoney) {
+    return ((jackpotMoney/this.#buyAmount)*100).toFixed(1);
+    ((5000/8000)*100).toFixed(1)
+  }
+  lottoJackpotResult(bonus) {
+    const state = new Lotto(this.#jackpotNumber).jackpotState(this.#lotto, Number(bonus))
+    const jackpotRank = state[0];
+    const rateOfReturn = this.rateOfReturnResult(state[1]);
+    return OutputView.printResult(jackpotRank, rateOfReturn);
   }
 }
 
