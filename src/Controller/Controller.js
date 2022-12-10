@@ -26,6 +26,16 @@ class Controller {
       amount -=1;
     }
     OutputView.printBuyLotto(this.#buyAmount, this.#lotto);
+    this.inputJackpot();
+  }
+  
+  inputJackpot() {
+    InputView.readJackpot((input) => {
+      const jackpotNumbers = input.split(',');
+      if(jackpotNumbers.length !== 6 || jackpotNumbers.some((number) => isNaN(number))) {
+        throw new Error('당첨번호는 쉼표를 기준으로 6자리의 숫자를 입력해야 합니다.')
+      }
+    })
   }
   
 }
