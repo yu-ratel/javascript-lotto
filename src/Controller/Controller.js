@@ -4,6 +4,12 @@ class Controller {
   
   inputFuntion() {
     InputView.readFunction((input) => {
+      if(input === '1') return this.inputMatching();
+    });
+  }
+  
+  inputMatching() {
+    InputView.readMatching((input) => {
       console.log(input)
     });
   }
