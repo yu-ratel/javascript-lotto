@@ -7,5 +7,7 @@ const randomCrew = (crew) => {
 const frontend = randomCrew(fs.readFileSync('src/resources/frontend-crew.md', 'utf-8'));
 const backend = randomCrew(fs.readFileSync('src/resources/backend-crew.md', 'utf-8'));
 
-console.log(frontend)
-console.log(backend)
+module.exports = { 
+    frontend,
+    backend,
+ };

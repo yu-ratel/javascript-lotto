@@ -1,6 +1,12 @@
 const InputView = require('../View/InputView');
+const OutputView = require('../View/OutputView');
+const { frontend, backend } = require('../Utils/Crew');
+const Matching = require('../Model/Matching');
 
 class Controller {
+  constructor() {
+    this.list = new Matching()
+  }
   
   inputFuntion() {
     InputView.readFunction((input) => {
@@ -10,8 +16,12 @@ class Controller {
   
   inputMatching() {
     InputView.readMatching((input) => {
-      console.log(input)
+      this.matchingResult();
     });
+  }
+
+  matchingResult() {
+    OutputView.matchingList(this.list.fairMatching(frontend))
   }
 }
 
