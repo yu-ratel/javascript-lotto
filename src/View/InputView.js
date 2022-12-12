@@ -8,8 +8,16 @@ const InputView = {
   },
 
   readMatching(callback) {
+    Console.readLine(`${message.EXAMPLE}\n${message.MATCHING}\n`, callback);
+  },
+
+  readReMatching(callback) {
+    Console.readLine(message.RE_MATCHING, callback);
+  },
+
+  readSelect(callback) {
     Console.readLine(message.MATCHING, callback);
-  } 
+  }
 }
 
 module.exports = InputView;

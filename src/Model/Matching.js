@@ -1,16 +1,16 @@
-const {} = require('../Utils/Crew');
 class Matching {
-  #matchingList = [];
+  #size = 2; 
 
   fairMatching(field) {
-    for(let index = 0; index < field.length; index += 2) {
-      this.#matchingList.push(field.slice(index, index + 2));
+    const matchingList = [];
+    for(let index = 0; index < field.length; index += this.#size) {
+      matchingList.push(field.slice(index, index + this.#size));
     }
     if(field.length % 2 === 1) {
-      this.#matchingList[this.#matchingList.length - 2].push(this.#matchingList.pop().join());
+      matchingList[matchingList.length - this.#size].push(matchingList.pop().join());
     }
 
-    return this.#matchingList;
+    return matchingList;
   }
 }
 

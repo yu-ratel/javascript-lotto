@@ -1,27 +1,52 @@
 const InputView = require('../View/InputView');
 const OutputView = require('../View/OutputView');
-const { frontend, backend } = require('../Utils/Crew');
-const Matching = require('../Model/Matching');
+const Frontend = require('../Model/Frontend');
+const Backend = require('../Model/Backend');
+const { Console } =require('@woowacourse/mission-utils');
 
 class Controller {
   constructor() {
-    this.list = new Matching()
+    this.frontend = new Frontend();
+    this.backend = new Backend();
   }
   
   inputFuntion() {
     InputView.readFunction((input) => {
-      if(input === '1') return this.inputMatching();
-    });
-  }
-  
-  inputMatching() {
-    InputView.readMatching((input) => {
-      this.matchingResult();
+      if(input === '2') return this.inputLookup();
+      if(input === '3') return this.reset();
+      if(input === 'Q') return Console.close();
+      return this.inputMatching();
     });
   }
 
-  matchingResult() {
-    OutputView.matchingList(this.list.fairMatching(frontend))
+  inputMatching() {
+    InputView.readMatching((input) => {
+      if(input.split(',')[0] === '프론트엔드') {
+        if(this.frontend.isOverlap(input))return this.isMatching(input)
+        return this.matchingResult(this.frontend.updata(input));
+      }
+    });
+  }
+
+  isMatching(input) {
+    InputView.readReMatching((select) => {
+      if(select === '네') return this.matchingResult([this.frontend.reUpdata(input)]);
+
+      return this.isMatching()
+    })
+  }
+
+  inputLookup() {
+    InputView.readMatching((input) => {
+      if(input.split(',')[0] === '프론트엔드' ) {
+        this.matchingResult([this.frontend.lookUpData(input)]);
+      }
+    })
+  }
+  matchingResult(list) {
+    OutputView.matchingList(list);
+    
+    return this.inputFuntion();
   }
 }
 
