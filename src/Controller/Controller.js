@@ -13,7 +13,7 @@ class Controller {
   inputFuntion() {
     InputView.readFunction((input) => {
       if(input === '2') return this.inputLookup();
-      if(input === '3') return this.reset();
+      if(input === '3') return this.reSet();
       if(input === 'Q') return Console.close();
       return this.inputMatching();
     });
@@ -47,6 +47,12 @@ class Controller {
     OutputView.matchingList(list);
     
     return this.inputFuntion();
+  }
+
+  reSet() {
+    this.frontend.reSetData();
+    OutputView.reSet();
+    this.inputFuntion();
   }
 }
 

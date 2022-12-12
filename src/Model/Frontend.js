@@ -48,6 +48,12 @@ class Frontend {
 
     return false;
   }
+
+  reSetData() {
+    this.#totalstate = [];
+    this.#reIndex = 0;
+    this.#matchingList = [];
+  }
 }
 
 module.exports = Frontend;
