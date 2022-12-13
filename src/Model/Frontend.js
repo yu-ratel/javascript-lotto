@@ -11,23 +11,22 @@ class Frontend {
   }
 
   isOverlap(input) {
-    if(this.#totalstate) {
-      for(let index = 0; index < this.#totalstate.length; index += 1) {
-        if(this.#totalstate[index].join() === input) {
-          this.#reIndex = index;
-          return true;
-        }
+    for(let index = 0; index < this.#totalstate.length; index += 1) {
+      if(this.#totalstate[index].join() === input) {
+        this.#reIndex = index;
+        return true;
       }
     }
-
+    
     return false;
   }
 
   updata(input) {
     this.#totalstate.push(input.split(','));
     this.#matchingList.push(this.matching.fairMatching(randomCrew(frontend)));
-
-    return this.#matchingList;
+    this.#reIndex += 1; 
+    
+    return this.#matchingList[this.#reIndex-1];
   }
 
   reUpdata(input) {

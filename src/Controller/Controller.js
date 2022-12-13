@@ -1,13 +1,11 @@
 const InputView = require('../View/InputView');
 const OutputView = require('../View/OutputView');
 const Frontend = require('../Model/Frontend');
-const Backend = require('../Model/Backend');
 const { Console } =require('@woowacourse/mission-utils');
 
 class Controller {
   constructor() {
     this.frontend = new Frontend();
-    this.backend = new Backend();
   }
   
   inputFuntion() {
@@ -21,16 +19,14 @@ class Controller {
 
   inputMatching() {
     InputView.readMatching((input) => {
-      if(input.split(',')[0] === '프론트엔드') {
         if(this.frontend.isOverlap(input))return this.isMatching(input)
         return this.matchingResult(this.frontend.updata(input));
-      }
     });
   }
 
   isMatching(input) {
     InputView.readReMatching((select) => {
-      if(select === '네') return this.matchingResult([this.frontend.reUpdata(input)]);
+      if(select === '네') return this.matchingResult(this.frontend.reUpdata(input));
 
       return this.isMatching()
     })
@@ -38,9 +34,7 @@ class Controller {
 
   inputLookup() {
     InputView.readMatching((input) => {
-      if(input.split(',')[0] === '프론트엔드' ) {
-        this.matchingResult([this.frontend.lookUpData(input)]);
-      }
+        this.matchingResult(this.frontend.lookUpData(input));
     })
   }
   matchingResult(list) {
