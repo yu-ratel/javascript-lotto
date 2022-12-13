@@ -1,7 +1,7 @@
 const Matching = require('./Matching');
-const { frontend, randomCrew } = require('../Utils/Crew');
+const { frontend, backend, randomCrew } = require('../Utils/Crew');
 
-class Frontend {
+class matchingState {
   #totalstate = [];
   #reIndex = 0;
   #matchingList = [];
@@ -22,26 +22,25 @@ class Frontend {
   }
 
   updata(input) {
-    this.#totalstate.push(input.split(','));
+    this.#totalstate.push(input);
     this.#matchingList.push(this.matching.fairMatching(randomCrew(frontend)));
     this.#reIndex += 1; 
-    
+
     return this.#matchingList[this.#reIndex-1];
   }
 
+ 
   reUpdata(input) {
-    this.#totalstate[this.#reIndex] = input.split(',');
+    this.#totalstate[this.#reIndex] = input;
     this.#matchingList[this.#reIndex] = this.matching.fairMatching(randomCrew(frontend));
 
     return this.#matchingList[this.#reIndex];
   }
 
   lookUpData(input) {
-    if(this.#totalstate) {
-      for(let index = 0; index < this.#totalstate.length; index += 1) {
-        if(this.#totalstate[index].join() === input) {
-          return this.#matchingList[index];
-        }
+    for(let index = 0; index < this.#totalstate.length; index += 1) {
+      if(this.#totalstate[index].join() === input) {
+        return this.#matchingList[index];
       }
     }
 
@@ -55,4 +54,4 @@ class Frontend {
   }
 }
 
-module.exports = Frontend;
+module.exports = matchingState;
